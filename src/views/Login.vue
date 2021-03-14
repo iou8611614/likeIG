@@ -10,22 +10,34 @@
               <img class="img-carousel p4" src="../assets/smartphone.png" alt="">
           </section>
           <section class="main-board right-board">
-              <h1 class="logo">likeIG</h1>
-              <form class="login-form">
-                  <input class="user account" type="text" placeholder="帳號">
-                  <input class="user password" type="text" placeholder="密碼">
-                  <button class="login-btn" @click.prevent="longinHandler">登入</button>
-              </form>
-              <div class="hr-decoration">
-                  <div class="hr-line"></div>
-                  <div>OR</div>
-                  <div class="hr-line"></div>
+              <div class="small-block login-block">
+                  <h1 class="logo">likeIG</h1>
+                <!-- <span>Account: {{account}}</span><br>
+                <span>Password: {{password}}</span> -->
+                <form class="login-form">
+                    <input class="form-item account" type="text"  v-model="account" placeholder="手機號碼、用戶名稱或電子郵件地址">
+                    <input class="form-item password" type="password"  v-model="password" placeholder="密碼">
+                    <button :class="{loginBtn:true, enableBtn: !isDisabled}" @click.prevent="longinHandler" :disabled="isDisabled">登入</button>
+                </form>
+                <div class="hr-decoration">
+                    <div class="hr-line"></div>
+                    <div>OR</div>
+                    <div class="hr-line"></div>
+                </div>
+                <div class="third-party-auth">
+                    <button class="thirdpartyBtn" @click="thirdpartyAuth">
+                        <!-- <span class="fb-logo">1</span> -->
+                        <svg xmlns="http://www.w3.org/2000/svg"  viewBox="0 0 48 48" width="24px" height="24px"><path fill="#3F51B5" d="M42,37c0,2.762-2.238,5-5,5H11c-2.761,0-5-2.238-5-5V11c0-2.762,2.239-5,5-5h26c2.762,0,5,2.238,5,5V37z"/><path fill="#FFF" d="M34.368,25H31v13h-5V25h-3v-4h3v-2.41c0.002-3.508,1.459-5.59,5.592-5.59H35v4h-2.287C31.104,17,31,17.6,31,18.723V21h4L34.368,25z"/></svg>
+                        <span>使用 Facebook 帳號登入</span>
+                    </button>
+                    <!-- <span>Google - login</span> -->
+                    <p class="prompt-msg">很抱歉，你的密碼不正確，請再次檢查密碼。</p>
+                    <a class="forgot-link" href="/forgetpage">忘記密碼?</a>
+                </div>
               </div>
-              <div class="third-party-auth">
-                  <span>facebook - login</span>
-                  <span>Google - login</span>
-                  <p class="prompt-msg">sorry , password not correct!</p>
-                  <a href="/forgetpage">forget password?</a>
+              <div class="small-block register-block">
+                  <span>沒有帳號嗎?</span>
+                  <a href="#">註冊</a>
               </div>
           </section>
       </section>
@@ -36,15 +48,33 @@
 </template>
 
 <script>
+import {ref, computed} from "vue";
 export default {
     setup(){
+        let account = ref("");
+        let password = ref("");
+        let isDisabled = computed(()=>{
+            if(account.value.trim() && password.value.trim() && password.value.length>=6){
+                return false;
+            }else{
+                return true;
+            }
+        })
+
         function longinHandler(){
             console.log("Login Process...")
         }
-        return {
-            longinHandler,
+        function thirdpartyAuth(){
+            console.log("Third Party Login Procee...");
         }
-    }
+        return {
+            account,
+            password,
+            isDisabled,
+            longinHandler,
+            thirdpartyAuth
+        }
+    },
 }
 </script>
 
@@ -58,16 +88,23 @@ export default {
     display: flex;
     justify-content: center;
     width: 50%;
-    margin: 10rem auto 0 auto;
+    margin: 5rem auto 0 auto;
 }
 .login-footer{
     width: 50%;
     margin: 0 auto 5rem auto;
     padding: 5rem 0;
 }
-section.main-board{
+// section.main-board{
+//     flex: 1;
+// }
+.left-board{
+    flex: 2;
+}
+.right-board{
     flex: 1;
 }
+
 h1.logo{
     padding: 2rem 0;
 }
@@ -106,18 +143,29 @@ img{
 .now{
     z-index: 9999;
 }
-.user{
+.form-item{
     width: 80%;
     margin: .5rem auto 0 auto;
-    padding: 1rem;
+    padding: .5rem;
     border-radius: 5px;
 }
-.login-btn{
+.loginBtn{
     width: 80%;
     margin: 1rem auto;
     padding: .5rem;
     border-radius: 5px;
-    background-color: lightblue;
+    background-color: #B2DFFC;
+    color: white;
+    font-weight: bold;
+    font-size: 14px;
+    border: none;
+}
+.enableBtn{
+    width: 80%;
+    margin: 1rem auto;
+    padding: .5rem;
+    border-radius: 5px;
+    background-color: #0095F6;
     color: white;
     font-weight: bold;
     font-size: 14px;
@@ -127,6 +175,7 @@ img{
     display: flex;
     justify-content: center;
     align-items: center;
+    margin: .5rem 0;
 }
 .hr-line{
     border: solid .1px lightgray;
@@ -134,7 +183,53 @@ img{
     height: 1px;
     margin: 0 1rem;
 }
+.third-party-auth{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+.thirdpartyBtn{
+    display: flex;
+    cursor: pointer;
+    outline: none;
+    border: none;
+    background-color: #fff;
+    color: #385185;
+    text-decoration: none;
+    margin: 1rem 0;
+    &:active{
+        border: 0px;
+    }
+    & span.fb-logo{
+        width: 20px;
+        // background-color:red;
+        background-image: url("../assets/facebook-app-logo.png");
+    }
+    & span{
+        font-weight: bold;
+    }
+}
+.small-block{
+    border: 1px solid rgba(167, 170, 170, 0.5);
+}
+.login-block{
+    margin: 0 0 0.5rem 0;
+}
+.register-block{
+    margin: 0.5rem 0 0 0;
+    padding: 1rem 0;
+}
 .prompt-msg{
     color: red;
+    font-size: 14px;
+}
+.forgot-link{
+    margin: .5rem 0;
+    text-decoration: none;
+    color: #385185;
+    font-size: 14px;
+    &:active{
+        color: #b7c6e4;
+    }
 }
 </style>
