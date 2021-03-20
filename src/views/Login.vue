@@ -87,11 +87,13 @@ export default {
 .login-body{
     display: flex;
     justify-content: center;
-    width: 50%;
+    max-width: 800px;
+    min-width: 800px;
     margin: 5rem auto 0 auto;
 }
 .login-footer{
-    width: 50%;
+    max-width: 800px;
+    min-width: 800px;
     margin: 0 auto 5rem auto;
     padding: 5rem 0;
 }
@@ -230,6 +232,29 @@ img{
     font-size: 14px;
     &:active{
         color: #b7c6e4;
+    }
+}
+
+@media only screen and (max-width: 875px) {
+    .main-board{
+        max-width: 350px;
+        min-width: 350px;
+    }
+    .login-body{
+        display: flex;
+        justify-content: center;
+        max-width: 350px;
+        min-width: 350px;
+        margin: 5rem auto 0 auto;
+    }
+    .login-footer{
+        max-width: 350px;
+        min-width: 350px;
+        margin: 0 auto 5rem auto;
+        padding: 5rem 0;
+    }
+    .left-board{
+        display: none;
     }
 }
 </style>
