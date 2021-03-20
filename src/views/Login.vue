@@ -10,14 +10,31 @@
               <img class="img-carousel p4" src="../assets/smartphone.png" alt="">
           </section>
           <section class="main-board right-board">
-              <div class="small-block login-block">
-                  <h1 class="logo">likeIG</h1>
+              <div class="login-block">
+                <h1 class="logo">likeIG</h1>
                 <!-- <span>Account: {{account}}</span><br>
                 <span>Password: {{password}}</span> -->
                 <form class="login-form">
-                    <input class="form-item account" type="text"  v-model="account" placeholder="手機號碼、用戶名稱或電子郵件地址">
-                    <input class="form-item password" type="password"  v-model="password" placeholder="密碼">
-                    <button :class="{loginBtn:true, enableBtn: !isDisabled}" @click.prevent="longinHandler" :disabled="isDisabled">登入</button>
+                    <!-- 
+                        regex means: 0~9(10位數電話號碼) or eamil格式
+                        pattern="^([0-9]{10})|([A-Za-z0-9._%\+\-]+@[a-z0-9.\-]+\.[a-z]{2,3})$"
+                     -->
+                    <input 
+                        class="form-item account" 
+                        type="text"  
+                        v-model="account" 
+                        placeholder="手機號碼、用戶名稱或電子郵件地址"
+                        pattern="^([0-9]{10})|([A-Za-z0-9._%\+\-]+@[a-z0-9.\-]+\.[a-z]{2,3})$"
+                        title="請輸入正確的電話號碼或郵件"
+                        required
+                    >
+                    <input 
+                        class="form-item password" 
+                        type="password"  
+                        v-model="password"
+                        placeholder="密碼"
+                    >
+                    <button :class="{loginBtn:true, enableBtn: !isDisabled}" @click="longinHandler" :disabled="isDisabled">登入</button>
                 </form>
                 <div class="hr-decoration">
                     <div class="hr-line"></div>
@@ -32,12 +49,12 @@
                     </button>
                     <!-- <span>Google - login</span> -->
                     <p class="prompt-msg">很抱歉，你的密碼不正確，請再次檢查密碼。</p>
-                    <a class="forgot-link" href="/forgetpage">忘記密碼?</a>
+                    <a class="forget-link" href="/forget">忘記密碼?</a>
                 </div>
               </div>
-              <div class="small-block register-block">
+              <div class="small-block signup-block">
                   <span>沒有帳號嗎?</span>
-                  <a href="#">註冊</a>
+                  <a href="/signup">註冊</a>
               </div>
           </section>
       </section>
@@ -87,13 +104,13 @@ export default {
 .login-body{
     display: flex;
     justify-content: center;
-    max-width: 800px;
-    min-width: 800px;
+    max-width: 935px;
+    min-width: 935px;
     margin: 5rem auto 0 auto;
 }
 .login-footer{
-    max-width: 800px;
-    min-width: 800px;
+    max-width: 935px;
+    min-width: 935px;
     margin: 0 auto 5rem auto;
     padding: 5rem 0;
 }
@@ -149,13 +166,13 @@ img{
     width: 80%;
     margin: .5rem auto 0 auto;
     padding: .5rem;
-    border-radius: 5px;
+    border-radius: 4px;
 }
 .loginBtn{
     width: 80%;
     margin: 1rem auto;
     padding: .5rem;
-    border-radius: 5px;
+    border-radius: 4px;
     background-color: #B2DFFC;
     color: white;
     font-weight: bold;
@@ -166,7 +183,7 @@ img{
     width: 80%;
     margin: 1rem auto;
     padding: .5rem;
-    border-radius: 5px;
+    border-radius: 4px;
     background-color: #0095F6;
     color: white;
     font-weight: bold;
@@ -211,13 +228,13 @@ img{
         font-weight: bold;
     }
 }
-.small-block{
-    border: 1px solid rgba(167, 170, 170, 0.5);
-}
+
 .login-block{
+    border: 1px solid rgba(167, 170, 170, 0.5);
     margin: 0 0 0.5rem 0;
+    border-radius: 1px;
 }
-.register-block{
+.signup-block{
     margin: 0.5rem 0 0 0;
     padding: 1rem 0;
 }
@@ -225,7 +242,7 @@ img{
     color: red;
     font-size: 14px;
 }
-.forgot-link{
+.forget-link{
     margin: .5rem 0;
     text-decoration: none;
     color: #385185;
