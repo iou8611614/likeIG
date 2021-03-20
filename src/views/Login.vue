@@ -118,10 +118,14 @@ export default {
 //     flex: 1;
 // }
 .left-board{
-    flex: 2;
+    max-width: 454px;
+    min-width: 454px;
+    // flex: 2;
 }
 .right-board{
-    flex: 1;
+    max-width: 350px;
+    min-width: 350px;
+    // flex: 1;
 }
 
 h1.logo{
@@ -132,13 +136,17 @@ h1.logo{
     flex-direction: column;
 }
 img{
-    width: 80%;
-    height: 80%;
+    width: 70%;
+    height: 100%;
     display: flex;
+    // background-color: red;
 }
-// .img-still{
-//     background-color: pink;
-// }
+.img-still{
+    position: absolute;
+    left: 10%;
+    bottom: 10px;
+    // background-color: blue;
+}
 .img-carousel{
     // background-color: lightblue;
     position: absolute;
