@@ -14,15 +14,20 @@ const routes = [
       import("../views/Login.vue")
   },
   {
-    path: "/signup",
-    name: "Signup",
+    path: "/accounts/signup",
+    name: "accountsSignup",
     component: () =>
       import("../views/Signup.vue")
   },
   {
+    path: "/accounts/password/reset",
+    name: "passwordReset",
+    component: () =>
+      import("../views/PasswordReset")
+  },
+  {
     path: "/accounts/login/auth-switcher",
     name: "Accounts",
-    children:[],
     component: () =>
       import("../views/Accounts.vue")
   }

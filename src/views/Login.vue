@@ -38,7 +38,7 @@
                 </form>
                 <div class="hr-decoration">
                     <div class="hr-line"></div>
-                    <div>OR</div>
+                    <div>或</div>
                     <div class="hr-line"></div>
                 </div>
                 <div class="third-party-auth">
@@ -49,12 +49,12 @@
                     </button>
                     <!-- <span>Google - login</span> -->
                     <p class="prompt-msg">很抱歉，你的密碼不正確，請再次檢查密碼。</p>
-                    <a class="forget-link" href="/forget">忘記密碼?</a>
+                    <a class="forget-link" href="/accounts/password/reset">忘記密碼?</a>
                 </div>
               </div>
               <div class="small-block signup-block">
                   <span>沒有帳號嗎?</span>
-                  <a href="/signup">註冊</a>
+                  <a href="/accounts/signup">註冊</a>
               </div>
           </section>
       </section>
@@ -103,7 +103,7 @@ export default {
 
 .login-body{
     display: flex;
-    justify-content: center;
+    justify-content: center;                    
     max-width: 935px;
     min-width: 935px;
     margin: 5rem auto 0 auto;
@@ -118,8 +118,8 @@ export default {
 //     flex: 1;
 // }
 .left-board{
-    max-width: 454px;
-    min-width: 454px;
+    max-width: 500px;
+    min-width: 500px;
     // flex: 2;
 }
 .right-board{
