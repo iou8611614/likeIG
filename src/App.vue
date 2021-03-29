@@ -3,7 +3,8 @@
     <router-link to="/">Home</router-link> |
     <router-link to="/login">Login</router-link> |
     <router-link to="/accounts/signup">Signup</router-link> |
-    <router-link to="/accounts/login/auth-switcher">Accounts</router-link> |
+    <!-- <router-link to="/accounts/login/auth-switcher">Accounts</router-link> | -->
+    <router-link to="/accounts/edit">Setting</router-link>
   </div>
   <router-view />
 </template>

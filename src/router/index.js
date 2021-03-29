@@ -10,27 +10,40 @@ const routes = [
   {
     path: "/login",
     name: "Login",
-    component:() =>
-      import("../views/Login.vue")
+    component:() => import("../views/Login.vue")
+  },
+  {
+    path: "/accounts",
+    name: "Accounts",
+    component: () => import("../views/Accounts.vue"),
+    children:[
+      {
+        path: "edit",
+        name: "Setting",
+        component: () => import("../views/Setting.vue")
+      },
+      {
+        path: "password/change",
+        name: "passwordChange",
+        component: () => import("../views/PasswordChange.vue")
+      }
+    ]
   },
   {
     path: "/accounts/signup",
     name: "accountsSignup",
-    component: () =>
-      import("../views/Signup.vue")
+    component: () => import("../views/Signup.vue")
   },
   {
     path: "/accounts/password/reset",
     name: "passwordReset",
-    component: () =>
-      import("../views/PasswordReset")
+    component: () => import("../views/PasswordReset")
   },
-  {
-    path: "/accounts/login/auth-switcher",
-    name: "Accounts",
-    component: () =>
-      import("../views/Accounts.vue")
-  }
+  // {
+  //   // third-party-auth
+  //   path: "/accounts/login/auth-switcher",
+  //   name: "Accounts",
+  // }
 ];
 
 const router = createRouter({

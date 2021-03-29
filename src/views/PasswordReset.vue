@@ -2,7 +2,7 @@
   <div class="reset-box">
       <section class="reset-body">
         <section class="reset-board">
-            <div class="reset-block">
+            <div :class="{'no-auth':!isAuth, 'has-auth':isAuth}">
                 <img src="" alt="無法登入圖片">
                 <h1>無法登入?</h1>
                 <p class="prompt-title">輸入你的電子郵件、電話號碼或用戶名稱，我們將傳送恢復帳號存取權的連結給你。</p>
@@ -16,15 +16,15 @@
                     >
                     <button :class="{resetBtn:true, enableBtn: !isDisabled}" @click="sendVerifyToMail" :disabled="isDisabled">傳送登入連結</button>
                 </form>
-                <div class="hr-decoration">
+                <div class="hr-decoration" v-if="!isAuth">
                     <div class="hr-line"></div>
                     <div>或</div>
                     <div class="hr-line"></div>
                 </div>
-                <div class="create-new-account-block">
+                <div class="create-new-account-block" v-if="!isAuth">
                     <a class="create-new-account" href="/accounts/signup">建立新帳號</a>
                 </div>
-                <div class="backToLogin-block">
+                <div class="backToLogin-block" v-if="!isAuth">
                     <a class="back-to-login" href="/login">返回登入</a>
                 </div>
             </div>
@@ -39,8 +39,9 @@ export default {
     setup(){
         let account = ref("");
         let password = ref("");
+        let isAuth = ref(false);
         let isDisabled = computed(()=>{
-            if(account.value.trim() && password.value.trim() && password.value.length>=6){
+            if(account.value.trim()){
                 return false;
             }else{
                 return true;
@@ -53,6 +54,7 @@ export default {
         return {
             account,
             password,
+            isAuth,
             isDisabled,
             sendVerifyToMail,
         }
@@ -128,12 +130,20 @@ h1.logo{
     margin: 0 1rem;
 }
 
-.reset-block{
+.no-auth{
     border: 1px solid rgba(167, 170, 170, 0.5);
     margin: 0 0 0.5rem 0;
     border-radius: 1px;
     width: 388px;
     height: 504px;
+}
+
+.has-auth{
+    border: 1px solid rgba(167, 170, 170, 0.5);
+    margin: 0 0 0.5rem 0;
+    border-radius: 1px;
+    width: 388px;
+    height: 311px;
 }
 
 a:visited{
