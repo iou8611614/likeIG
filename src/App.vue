@@ -15,6 +15,7 @@
   padding: 0;
   margin: 0;
   box-sizing: border-box;
+  // border: solid 1px;
 }
 html,body{
   width: 100%;
@@ -27,12 +28,20 @@ html,body{
   text-align: center;
   color: #2c3e50;
   width: 100%;
-  height: auto;
+  height: 100%;
 }
 
 #nav {
-  padding: 30px;
-
+  position: fixed;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  top: 0;
+  border: solid 1px lightgray;
+  width: 100%;
+  height: 54px;
+  z-index: 9999;
+  background-color: #fff;
   a {
     font-weight: bold;
     color: #2c3e50;
@@ -41,5 +50,9 @@ html,body{
       color: #42b983;
     }
   }
+}
+
+.page{
+  margin-top: 80px;
 }
 </style>

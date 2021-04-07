@@ -1,5 +1,5 @@
 <template>
-    <div class="pwd-change-box">
+    <div class="page pwd-change-box">
         <h1>Password Change</h1>
     </div>
 </template>
@@ -13,5 +13,6 @@ export default {
 <style>
 .pwd-change-box{
     width: 696px;
+    height: 846px;
 }
 </style>
