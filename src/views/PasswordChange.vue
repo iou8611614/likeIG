@@ -62,7 +62,14 @@ export default {
                 return true;
             }
         })
-
+        function initForm(){
+            oldPWD.value = "";
+            newPWD.value = "";
+            confirmPWD.value = "";
+            isPwdCorrect.value = true;
+            isSamePwd.value = true;
+            isMeetPwdRule.value = true;
+        }
         function changePWD(event){
             event.preventDefault();
             /*
@@ -82,6 +89,7 @@ export default {
                     isMeetPwdRule.value = true;
                     if(newPWD.value === confirmPWD.value){
                         isSamePwd.value = true;
+                        initForm();
                         console.log("send new password to DB");
                     }else{
                         isSamePwd.value = false;
