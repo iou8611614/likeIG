@@ -37,7 +37,7 @@
                     <input class="form-item account" type="text"  v-model="fullName" placeholder="全名" required>
                     <input class="form-item account" type="text"  v-model="userName" placeholder="用戶名稱" required>
                     <input class="form-item password" type="password"  v-model="password" placeholder="密碼" required>
-                    <button :class="{signupBtn:true, enableBtn: !isDisabled}" @click="signupHandler" :disabled="isDisabled">註冊</button>
+                    <button :class="{disableBtn:isDisabled, enableBtn: !isDisabled}" @click="signupHandler" :disabled="isDisabled">註冊</button>
                 </form>
 
               </div>
@@ -66,6 +66,7 @@ export default {
         })
 
         function signupHandler(){
+            // initial(empty) all input data
             console.log("Login Process...")
         }
         function thirdpartyAuth(){
@@ -130,7 +131,7 @@ h1.logo{
     padding: .5rem;
     border-radius: 4px;
 }
-.signupBtn{
+.disableBtn{
     width: 80%;
     margin: 1rem auto;
     padding: .5rem;
@@ -140,6 +141,7 @@ h1.logo{
     font-weight: bold;
     font-size: 14px;
     border: none;
+    cursor: initial;
 }
 .enableBtn{
     width: 80%;
@@ -151,6 +153,7 @@ h1.logo{
     font-weight: bold;
     font-size: 14px;
     border: none;
+    cursor: pointer;
 }
 .hr-decoration{
     display: flex;

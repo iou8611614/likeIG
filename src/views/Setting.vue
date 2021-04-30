@@ -2,7 +2,7 @@
     <div class="page profile-box">
         <section class="section-name-picture">
             <div class="set-picture">
-                <img class="selfie" src="../assets/selfie.png" alt="" title="selfie">
+                <img class="selfie" src="../assets/selfie.png" alt="selfie" title="selfie">
                 <div class="change-picture">
                     <h1>{{profile.accountName}}</h1>
                     <a class="change-picture" @click.prevent="openPicturePanel">變更大頭貼照</a>
@@ -24,7 +24,7 @@
                 <div class="form-item">
                     <label for="account">用戶名稱</label>
                     <div class="account-field">
-                        <input type="text" name="account" v-model="profile.accountName">
+                        <input type="text" name="account" v-model="profile.accountName" required>
                         <p class="account-prompt">在大多數情況下，你可以在 14 天後將用戶名稱改回 {{profile.accountName}} 。</p>
                     </div>
                 </div>
@@ -49,8 +49,7 @@
                 </div>
                 <div class="form-item">
                     <label for="">性別</label>
-                    <!-- <input type="text" name="" v-model="profile.gender"> -->
-                    <button class="genderField" @click.prevent="isOpenGenderPanel = true">
+                    <button class="genderField" @click.prevent="openGenderPanel">
                         <input type="text" name="" v-model="profile.gender" readonly>
                     </button>
                 </div>
@@ -111,15 +110,16 @@
 import {ref, reactive, watch} from 'vue';
 export default {
     setup(){
-        // load user account name from server or vuex.
         let tempGender = "";
-        let temp = false;
+        let watchGenderChange = false;
         let isGenderChange = ref(false);
         let isOpenPicturePanel = ref(false);
         let isChangeUserName = ref(false);
         let isOpenGenderPanel = ref(false);
         let uploadFile = ref(null);
 
+        // load user account name from server or vuex.
+        // accountName need save in vuex for share data.
         let profile = reactive({
             userName: "Jason",
             accountName: "iou8611614",
@@ -130,7 +130,9 @@ export default {
             gender:"",
         })
         watch(()=> profile.gender,(newV)=>{
-            temp = newV==""?false:newV!==tempGender?true:false;
+            console.log("old gender: ",tempGender);
+            console.log("new gender: ",newV);
+            watchGenderChange = newV==""?false:newV!==tempGender?true:false;
         })
         function changeUserName(){
             console.log("change user name");
@@ -138,6 +140,10 @@ export default {
         function openPicturePanel(){
             isOpenPicturePanel.value = true;
             console.log("open picture panel", isOpenPicturePanel.value);
+        }
+        function openGenderPanel(){
+            isOpenGenderPanel.value = true
+            watchGenderChange = false;
         }
         function closePicturePanel(){
             isOpenPicturePanel.value = false;
@@ -149,14 +155,27 @@ export default {
             isOpenGenderPanel.value = false;
             console.log("Gender Panel: ",isOpenGenderPanel.value);
         }
+
+
         function closeGenderPanel(){
-            isGenderChange.value = temp;
+            if(watchGenderChange){
+                isGenderChange.value = watchGenderChange;
+            }else{
+                isOpenGenderPanel.value = false;
+            }
             console.log("judege gender change, change? ",isGenderChange.value);
+            console.log("judege now gender: ",profile.gender,tempGender);
         }
+
+
         function close_gender_and_confirm_Panel(){
             isGenderChange.value = false;
             isOpenGenderPanel.value = false;
+            // gender contain old value
+            profile.gender = tempGender;
         }
+
+
         function uploadPicture(){
             uploadFile.value.click();
             uploadFile.value.onchange = function(event){
@@ -184,6 +203,7 @@ export default {
             isGenderChange,
             changeUserName,
             openPicturePanel,
+            openGenderPanel,
             closePicturePanel,
             close_gender_and_confirm_Panel,
             pickGenderDone,

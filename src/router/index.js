@@ -25,7 +25,7 @@ const routes = [
       {
         path: "password/change",
         name: "passwordChange",
-        component: () => import("../views/PasswordChange.vue")
+        component: () => import("../views/PasswordChange.vue"),
       }
     ]
   },
