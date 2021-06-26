@@ -1,22 +1,23 @@
 import { createRouter, createWebHistory } from "vue-router";
-import Home from "../views/Home.vue";
+// import Home from "../views/Home.vue";
 
 const routes = [
+  // {
+  //   path: "/",
+  //   name: "Home",
+  //   component: Home
+  // },
   {
     path: "/",
-    name: "Home",
-    component: Home
-  },
-  {
-    path: "/login",
     name: "Login",
-    component:() => import("../views/Login.vue")
+    alias: "/login",
+    component: () => import("../views/Login.vue")
   },
   {
     path: "/accounts",
     name: "Accounts",
     component: () => import("../views/Accounts.vue"),
-    children:[
+    children: [
       {
         path: "edit",
         name: "Setting",
@@ -25,7 +26,7 @@ const routes = [
       {
         path: "password/change",
         name: "passwordChange",
-        component: () => import("../views/PasswordChange.vue"),
+        component: () => import("../views/PasswordChange.vue")
       }
     ]
   },
@@ -39,6 +40,10 @@ const routes = [
     name: "passwordReset",
     component: () => import("../views/PasswordReset")
   },
+  {
+    path: "/:pathMatch(.*)",
+    redirect: "/login"
+  }
   // {
   //   // third-party-auth
   //   path: "/accounts/login/auth-switcher",
